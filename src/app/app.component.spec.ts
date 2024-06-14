@@ -5,34 +5,49 @@ describe('AppComponent', () => {
   let component: AppComponent;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    component = TestBed.inject(AppComponent);
+    TestBed.configureTestingModule({
+      declarations: [AppComponent]
+    });
+    const fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
   });
 
-  it('should be created', () => {
+  it('should create the app', () => {
     expect(component).toBeTruthy();
   });
 
   it('should minimize notes correctly for various amounts', () => {
-    expect(component.minimizeNotes(230)).toEqual(new Map([
+    // Test case 1: Amount 230
+    component.amount = 230;
+    component.minimizeNotes();
+    expect(component.notesBreakdown).toEqual(new Map([
       [100, 2],
       [20, 1],
       [10, 1]
     ]));
 
-    expect(component.minimizeNotes(375)).toEqual(new Map([
+    // Test case 2: Amount 375
+    component.amount = 375;
+    component.minimizeNotes();
+    expect(component.notesBreakdown).toEqual(new Map([
       [100, 3],
       [50, 1],
       [20, 1],
       [5, 1]
     ]));
 
-    expect(component.minimizeNotes(80)).toEqual(new Map([
+    // Test case 3: Amount 80
+    component.amount = 80;
+    component.minimizeNotes();
+    expect(component.notesBreakdown).toEqual(new Map([
       [50, 1],
       [20, 1],
       [10, 1]
     ]));
 
-    expect(component.minimizeNotes(0)).toEqual(new Map());
+    // Test case 4: Amount 0
+    component.amount = 0;
+    component.minimizeNotes();
+    expect(component.notesBreakdown).toEqual(new Map());
   });
 });
